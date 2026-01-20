@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import fetch_news
+from .views import FetchNews
 
 urlpatterns = [
-    path("news/", fetch_news, name="fetch_news"),
+    path("news/", FetchNews.as_view(), name="fetch_news"),
 ]
