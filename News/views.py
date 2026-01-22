@@ -5,30 +5,34 @@ from rest_framework import status
 from django.conf import settings
 import requests
 
-def get_news_data(country="us", category="technology"):
+def get_news_data(country="rw", category="top"):
     """
     Helper function to fetch news data from the API with filtering.
     
     Args:
         country (str): 2-letter country code (e.g., 'us', 'gb', 'rw').
-        category (str): News category (e.g., 'technology', 'business').
+        category (str): News category (e.g., 'technology', 'business', 'top').
     """
-    url = "https://newsdata.io/api/1/news"
+    url = "https://newsdata.io/api/1/latest"
     
     # Basic validation
     if not country:
-        country = "us"
+        country = "rw"
     if not category:
-        category = "technology"
+        category = "top"
         
     params = {
         "apikey": settings.NEWSDATA_API_KEY,
         "language": "en",
         "country": country,
         "image": 1,
-        "category": category,
         "removeduplicate": 1
     }
+    
+    # Only add category if it's not 'top' (assuming 'top' or omitting it gives general news)
+    # The user's working example had NO category param.
+    if category and category != 'top':
+        params['category'] = category
     
     try:
         response = requests.get(url, params=params)
@@ -47,8 +51,8 @@ def get_news_data(country="us", category="technology"):
 
 class FetchNews(APIView):
     def get(self, request):
-        country = request.query_params.get('country', 'us')
-        category = request.query_params.get('category', 'technology')
+        country = request.query_params.get('country', 'rw')
+        category = request.query_params.get('category', 'top')
         
         data = get_news_data(country=country, category=category)
         
@@ -63,8 +67,8 @@ class FetchNews(APIView):
 def home(request):
     """View to render the futuristic home page with filters."""
     # Get filters from query params
-    selected_country = request.GET.get('country', 'us')
-    selected_category = request.GET.get('category', 'technology')
+    selected_country = request.GET.get('country', 'rw')
+    selected_category = request.GET.get('category', 'top')
     
     # We can fetch some default news for server-side rendering (SSR)
     # The dedicated API can be used for client-side filtering/loading more

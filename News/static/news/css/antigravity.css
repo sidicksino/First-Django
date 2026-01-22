@@ -551,9 +551,24 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
 .card-meta {
     display: flex;
     justify-content: space-between;
-    font-size: 0.85rem;
+    align-items: center;
+    font-size: 0.8rem;
     color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.country-tag {
+    color: var(--accent-secondary);
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+.card-source-row {
     margin-bottom: 12px;
+    font-size: 0.85rem;
+    color: var(--accent-primary);
+    font-weight: 500;
 }
 
 .card-title {
