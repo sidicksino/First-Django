@@ -5,13 +5,26 @@ from rest_framework import status
 from django.conf import settings
 import requests
 
-def get_news_data(category="technology"):
-    """Helper function to fetch news data from the API."""
+def get_news_data(country="us", category="technology"):
+    """
+    Helper function to fetch news data from the API with filtering.
+    
+    Args:
+        country (str): 2-letter country code (e.g., 'us', 'gb', 'rw').
+        category (str): News category (e.g., 'technology', 'business').
+    """
     url = "https://newsdata.io/api/1/news"
+    
+    # Basic validation
+    if not country:
+        country = "us"
+    if not category:
+        category = "technology"
+        
     params = {
         "apikey": settings.NEWSDATA_API_KEY,
         "language": "en",
-        "country": "rw",  # Consider making this dynamic or broader for "Global" feel
+        "country": country,
         "image": 1,
         "category": category,
         "removeduplicate": 1
@@ -34,7 +47,11 @@ def get_news_data(category="technology"):
 
 class FetchNews(APIView):
     def get(self, request):
-        data = get_news_data()
+        country = request.query_params.get('country', 'us')
+        category = request.query_params.get('category', 'technology')
+        
+        data = get_news_data(country=country, category=category)
+        
         if data["error"]:
              # In a real API we might want to pass the status code from the upstream response
             return Response(
@@ -44,12 +61,19 @@ class FetchNews(APIView):
         return Response({"results": data["results"]}, status=status.HTTP_200_OK)
 
 def home(request):
-    """View to render the futuristic home page."""
+    """View to render the futuristic home page with filters."""
+    # Get filters from query params
+    selected_country = request.GET.get('country', 'us')
+    selected_category = request.GET.get('category', 'technology')
+    
     # We can fetch some default news for server-side rendering (SSR)
     # The dedicated API can be used for client-side filtering/loading more
-    news_data = get_news_data()
+    news_data = get_news_data(country=selected_country, category=selected_category)
+    
     context = {
         "news_articles": news_data["results"],
-        "error": news_data["error"]
+        "error": news_data["error"],
+        "selected_country": selected_country,
+        "selected_category": selected_category,
     }
     return render(request, 'news/home.html', context)

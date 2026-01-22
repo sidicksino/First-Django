@@ -38,18 +38,38 @@
                 <span class="filter-label">Filter by:</span>
                 <div class="custom-dropdown">
                     <button class="dropdown-trigger">
-                        <span>All Countries</span>
+                        <span>
+                            {% if selected_country == 'us' %}United States
+                            {% elif selected_country == 'rw' %}Rwanda
+                            {% elif selected_country == 'gb' %}UK
+                            {% elif selected_country == 'td' %}Chad
+                            {% elif selected_country == 'sd' %}Sudan
+                            {% elif selected_country == 'ss' %}South Sudan
+                            {% elif selected_country == 'lr' %}Liberia
+                            {% elif selected_country == 'ga' %}Gabon
+                            {% else %}All Countries{% endif %}
+                        </span>
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
                     </button>
-                    <!-- Dropdown content would go here -->
+                    <div class="dropdown-content">
+                        <!-- Simple link-based filtering for SSR -->
+                        <a href="?country=us&category={{ selected_category }}" class="dropdown-item {% if selected_country == 'us' %}active{% endif %}">United States</a>
+                        <a href="?country=rw&category={{ selected_category }}" class="dropdown-item {% if selected_country == 'rw' %}active{% endif %}">Rwanda</a>
+                        <a href="?country=gb&category={{ selected_category }}" class="dropdown-item {% if selected_country == 'gb' %}active{% endif %}">UK</a>
+                        <a href="?country=td&category={{ selected_category }}" class="dropdown-item {% if selected_country == 'td' %}active{% endif %}">Chad</a>
+                        <a href="?country=sd&category={{ selected_category }}" class="dropdown-item {% if selected_country == 'sd' %}active{% endif %}">Sudan</a>
+                        <a href="?country=ss&category={{ selected_category }}" class="dropdown-item {% if selected_country == 'ss' %}active{% endif %}">South Sudan</a>
+                        <a href="?country=lr&category={{ selected_category }}" class="dropdown-item {% if selected_country == 'lr' %}active{% endif %}">Liberia</a>
+                        <a href="?country=ga&category={{ selected_category }}" class="dropdown-item {% if selected_country == 'ga' %}active{% endif %}">Gabon</a>
+                    </div>
                 </div>
             </div>
             <div class="category-pills">
-                <button class="pill active">All</button>
-                <button class="pill">Technology</button>
-                <button class="pill">Business</button>
-                <button class="pill">Science</button>
-                <button class="pill">Health</button>
+                <a href="?category=technology&country={{ selected_country }}" class="pill {% if selected_category == 'technology' %}active{% endif %}">Technology</a>
+                <a href="?category=business&country={{ selected_country }}" class="pill {% if selected_category == 'business' %}active{% endif %}">Business</a>
+                <a href="?category=science&country={{ selected_country }}" class="pill {% if selected_category == 'science' %}active{% endif %}">Science</a>
+                <a href="?category=health&country={{ selected_country }}" class="pill {% if selected_category == 'health' %}active{% endif %}">Health</a>
+                <a href="?category=entertainment&country={{ selected_country }}" class="pill {% if selected_category == 'entertainment' %}active{% endif %}">Entertainment</a>
             </div>
         </div>
     </div>
