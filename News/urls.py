@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import FetchNews
+from . import views
 
 urlpatterns = [
-    path("news/", FetchNews.as_view(), name="fetch_news"),
+    path('', views.home, name='home'),
+    path('api/news/', views.FetchNews.as_view(), name='fetch_news'),
 ]

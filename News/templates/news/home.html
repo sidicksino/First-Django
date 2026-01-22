@@ -1,0 +1,100 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-content">
+        <span class="hero-tag">BREAKING NEWS</span>
+        <h1 class="hero-title">
+            <span class="line-reveal">The Future of</span>
+            <span class="line-reveal text-gradient">Information</span>
+        </h1>
+        <p class="hero-subtitle">Experience news in a weightless environment designed for clarity.</p>
+        <div class="hero-actions">
+            <a href="#news-feed" class="btn-explore">
+                Explore Stories
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M7 17L17 7M17 7H7M17 7V17"></path>
+                </svg>
+            </a>
+        </div>
+    </div>
+    <div class="hero-visual">
+         <!-- Abstract 3D/Floating Element Placeholder -->
+         <div class="floating-card-stack">
+            <div class="card-layer layer-1"></div>
+            <div class="card-layer layer-2"></div>
+            <div class="card-layer layer-3"></div>
+         </div>
+    </div>
+</section>
+
+<!-- Filter System -->
+<section class="filter-section sticky-filter" id="news-feed">
+    <div class="container">
+        <div class="filter-bar">
+            <div class="filter-group">
+                <span class="filter-label">Filter by:</span>
+                <div class="custom-dropdown">
+                    <button class="dropdown-trigger">
+                        <span>All Countries</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <!-- Dropdown content would go here -->
+                </div>
+            </div>
+            <div class="category-pills">
+                <button class="pill active">All</button>
+                <button class="pill">Technology</button>
+                <button class="pill">Business</button>
+                <button class="pill">Science</button>
+                <button class="pill">Health</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- News Grid -->
+<section class="news-grid-section">
+    <div class="container">
+        {% if error %}
+            <div class="error-banner">
+                <p>Unable to load live news: {{ error }}</p>
+            </div>
+        {% endif %}
+
+        <div class="news-grid">
+            {% for article in news_articles %}
+            <article class="news-card" data-tilt>
+                <div class="card-image-wrapper">
+                    {% if article.image_url %}
+                        <img src="{{ article.image_url }}" alt="{{ article.title }}" class="card-image" loading="lazy">
+                    {% else %}
+                        <div class="placeholder-image"></div>
+                    {% endif %}
+                    <div class="card-overlay"></div>
+                    <span class="card-category">{{ article.category|default:"General"|join:", " }}</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-meta">
+                        <span class="date">{{ article.pubDate|slice:":10" }}</span>
+                        <span class="source">{{ article.source_id }}</span>
+                    </div>
+                    <h3 class="card-title">
+                        <a href="{{ article.link }}" target="_blank">{{ article.title|truncatechars:80 }}</a>
+                    </h3>
+                    <p class="card-description">{{ article.description|default:""|truncatechars:120 }}</p>
+                    <a href="{{ article.link }}" target="_blank" class="read-more">
+                        Read Article 
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </article>
+            {% empty %}
+                <p class="no-news">No news articles found at the moment.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

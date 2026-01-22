@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Antigravity News{% endblock %}</title>
+    <meta name="description" content="A futuristic news platform delivering the latest updates with zero gravity.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'news/css/antigravity.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="antigravity-body">
+    <div class="background-globes">
+        <div class="globe globe-1"></div>
+        <div class="globe globe-2"></div>
+    </div>
+
+    <nav class="glass-nav">
+        <div class="container nav-container">
+            <a href="{% url 'home' %}" class="brand-logo">
+                <span class="logo-text">ZERO</span><span class="logo-accent">G</span>
+            </a>
+            <div class="nav-links">
+                <a href="#" class="nav-item">World</a>
+                <a href="#" class="nav-item">Tech</a>
+                <a href="#" class="nav-item">Design</a>
+                <a href="#" class="nav-item active">News</a>
+            </div>
+            <div class="nav-actions">
+                <button class="icon-btn search-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+                <button class="btn-primary-glow">Subscribe</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="glass-footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <h3>ZEROG NEWS</h3>
+                <p>Global perspectives, zero gravity.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script src="{% static 'news/js/antigravity.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
