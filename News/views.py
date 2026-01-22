@@ -73,3 +73,11 @@ def home(request):
         "selected_category": selected_category,
     }
     return render(request, 'news/home.html', context)
+
+def about(request):
+    """View to render the about page."""
+    return render(request, 'news/about.html')
+
+def contact(request):
+    """View to render the contact page."""
+    return render(request, 'news/contact.html')

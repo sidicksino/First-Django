@@ -28,10 +28,9 @@
                 <span class="logo-text">SINO</span><span class="logo-accent">INFOS</span>
             </a>
             <div class="nav-links">
-                <a href="#" class="nav-item">World</a>
-                <a href="#" class="nav-item">Tech</a>
-                <a href="#" class="nav-item">Design</a>
-                <a href="#" class="nav-item active">News</a>
+                <a href="{% url 'home' %}" class="nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+                <a href="{% url 'about' %}" class="nav-item {% if request.resolver_match.url_name == 'about' %}active{% endif %}">About</a>
+                <a href="{% url 'contact' %}" class="nav-item {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a>
             </div>
             <div class="nav-actions">
                 <button class="icon-btn search-btn">
