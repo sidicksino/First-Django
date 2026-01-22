@@ -420,7 +420,7 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     z-index: 100;
     padding: 8px 0;
-    margin-top: 8px;
+    margin-top: 0px;
 }
 
 .custom-dropdown:hover .dropdown-content {
