@@ -3,30 +3,41 @@
 
 {% block content %}
 <!-- Hero Section -->
+<!-- Hero Section -->
 <section class="hero-section">
-    <div class="hero-content">
-        <span class="hero-tag">BREAKING NEWS</span>
-        <h1 class="hero-title">
-            <span class="line-reveal">The Future of</span>
-            <span class="line-reveal text-gradient">Information</span>
+    <!-- Background Effects -->
+    <div class="hero-background">
+        <canvas id="lightning-canvas"></canvas>
+    </div>
+
+    <div class="hero-content centered-hero">
+        <!-- Trust Badge -->
+        <div class="trust-badge">
+            <div class="badge-inner">
+                <span class="badge-icon text-yellow">★</span>
+                <span class="badge-icon text-orange">★</span>
+                <span class="badge-icon text-amber">★</span>
+                <span class="badge-text" style="margin-left:8px;">Trusted by 1M+ Readers</span>
+            </div>
+        </div>
+
+        <h1 class="hero-title-large animate-fade-up delay-200">
+            <span class="text-gradient-orange">The Future of</span><br>
+            <span class="text-gradient-red">Information</span>
         </h1>
-        <p class="hero-subtitle">Experience news in a weightless environment designed for clarity.</p>
-        <div class="hero-actions">
-            <a href="#news-feed" class="btn-explore">
+        
+        <p class="hero-subtitle animate-fade-up delay-400">
+            Experience news in a weightless environment designed for clarity, powered by cosmic intelligence.
+        </p>
+        
+        <div class="hero-actions animate-fade-up delay-600">
+            <a href="#news-feed" class="btn-primary-gradient">
                 Explore Stories
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M7 17L17 7M17 7H7M17 7V17"></path>
-                </svg>
+            </a>
+            <a href="#" class="btn-secondary-glass">
+                Learn More
             </a>
         </div>
-    </div>
-    <div class="hero-visual">
-         <!-- Abstract 3D/Floating Element Placeholder -->
-         <div class="floating-card-stack">
-            <div class="card-layer layer-1"></div>
-            <div class="card-layer layer-2"></div>
-            <div class="card-layer layer-3"></div>
-         </div>
     </div>
 </section>
 
