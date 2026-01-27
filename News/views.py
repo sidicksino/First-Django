@@ -4,6 +4,39 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.conf import settings
 import requests
+import csv
+import os
+from datetime import datetime
+from django.conf import settings
+
+def save_to_csv(news_items):
+    """
+    Saves a list of news items to a CSV file in the 'data' directory.
+    """
+    # Define the data directory
+    data_dir = os.path.join(settings.BASE_DIR, 'data')
+    
+    # Create the directory if it doesn't exist
+    if not os.path.exists(data_dir):
+        os.makedirs(data_dir)
+        
+    # Generate a filename with a timestamp
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"news_{timestamp}.csv"
+    filepath = os.path.join(data_dir, filename)
+    
+    # Write to CSV
+    try:
+        with open(filepath, mode='w', newline='', encoding='utf-8') as csvfile:
+            fieldnames = ['title', 'link', 'description', 'pubDate', 'source_id', 'country', 'category', 'language']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames, extrasaction='ignore')
+            
+            writer.writeheader()
+            for item in news_items:
+                writer.writerow(item)
+        print(f"Successfully saved news to {filepath}")
+    except Exception as e:
+        print(f"Error saving to CSV: {e}")
 
 def get_news_data(country="rw", category="all"):
 
@@ -35,6 +68,7 @@ def get_news_data(country="rw", category="all"):
                 article for article in data.get('results', []) 
                 if article.get('image_url')
             ]
+            save_to_csv(results)
             return {"results": results, "error": None}
         else:
             return {"results": [], "error": f"Failed to fetch news: {response.text}"}
